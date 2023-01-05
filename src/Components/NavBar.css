@@ -1,0 +1,64 @@
+nav{
+    width: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.lista{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;    
+}
+
+.lista a{
+    text-decoration: none;
+    color: white;
+    padding-left: 3rem;
+    text-align: start;
+}
+
+.lista a:hover{
+    cursor: pointer;
+    color: gray;
+}
+
+
+.logo{
+    padding-left: 10rem;
+}
+.logo:hover{
+    cursor: pointer;
+}
+
+.compra{
+    padding-left: 10rem;    
+}
+.compra:hover{
+    cursor: pointer;    
+}
+
+.carrito{
+    height: 4rem;
+    width: 4rem;
+}
+
+.App-header{
+    align-items: flex-start;
+    justify-content: start;
+}
+
+.compra{
+    display: flex;
+    flex-direction: row;
+}
+.contador{
+    color: black;
+    background-color: white;
+    position: absolute;
+    width: 40px;
+    border-radius: 50%;
+
+    
+}
