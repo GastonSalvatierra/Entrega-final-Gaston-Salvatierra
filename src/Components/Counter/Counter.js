@@ -1,6 +1,5 @@
 import '../Counter/Counter.css'
-import { useState } from 'react'
-
+import { useState } from 'react';
 
 const Counter = () => {
 
@@ -27,4 +26,4 @@ const Counter = () => {
  
 }
 
-export default Counter
+export default Counter;
