@@ -1,4 +1,6 @@
 import CartWidget from '../CartWidget/CartWidget';
+import { NavLink } from 'react-router-dom';
+import './NavBar.css';
 
 
 const NavBar = () => {
@@ -16,10 +18,10 @@ const NavBar = () => {
 
     <div className="nav-item">
         <ul className="lista">
-            <li className="item-list"><a href="#">Remeras</a></li>
-            <li className="item-list"><a href="#">Musculosas</a></li>
-            <li className="item-list"><a href="#">Zapatillas</a></li>
-            <li className="item-list"><a href="#">Gorras</a></li>        
+            <li className="item-list"><NavLink to="/" className={({isActive})=> isActive ? 'active' : 'inactive'}>Todo</NavLink></li>
+            <li className="item-list"><NavLink to="/category/men's clothing">Hombre</NavLink></li>
+            <li className="item-list"><NavLink to="/category/women's clothing">Mujer</NavLink></li>
+            <li className="item-list"><NavLink to="/category/jewelery">Joyas</NavLink></li>        
         </ul>
     </div>
     

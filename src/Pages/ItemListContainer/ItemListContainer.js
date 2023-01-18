@@ -1,6 +1,7 @@
 import Counter from '../../Components/Counter/Counter'; 
 import { useEffect, useState} from 'react';
 import ItemList from '../../Components/ItemList/ItemList';
+import { useParams } from 'react-router-dom';
 
 
 /* const arreglo= [
@@ -9,10 +10,10 @@ import ItemList from '../../Components/ItemList/ItemList';
   {marca:'VICTUS', precio: 6000, id:14},
   {marca:'MSI', precio: 7000, id:15}
 ]; */
-const idProduct = '2';
-const ItemListContainer = ({greeting}) => {
-/*   const [productos, setProducts] = useState([]);
- */  const [singleProduct, setSingleProduct] = useState([])
+ const ItemListContainer = ({greeting}) => {
+  const [productos, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const {category} = useParams();
 
 /*   const getProducts = new Promise((resolve, reject) => {
     setTimeout(()=> {
@@ -20,10 +21,9 @@ const ItemListContainer = ({greeting}) => {
     }, 2000);
   });  */
 
-/*   const getProducts = fetch('https://fakestoreapi.com/products')
- */  const getProducts = fetch(`https://fakestoreapi.com/products/${idProduct}`)
+  const getProducts = fetch('https://fakestoreapi.com/products')
 
-/*  useEffect(() =>{
+ useEffect(() =>{
   getProducts
   .then((response) => response.json())
 
@@ -32,27 +32,20 @@ const ItemListContainer = ({greeting}) => {
  
 
   .catch((err) => console.log(err))
-}) */
-  
-useEffect(() =>{
-  getProducts
-  .then((response) => response.json())
-
-
-  .then((response) =>setSingleProduct(response))
- 
-
-  .catch((err) => console.log(err))
 })
 
-
-
+useEffect(() => {
+  const filterProducts= productos.filter((item)=> item.category === category)
+  setFilteredProducts(filterProducts);
+}
+,[category] )
+  
 
   return (
     <div>
       <h1>{greeting}</h1>
       <Counter/>
-      <ItemList productos= {singleProduct}/>
+      <ItemList productos= {category ? filteredProducts : productos}/>
     </div>
   )
 }
