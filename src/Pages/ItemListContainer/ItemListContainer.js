@@ -1,6 +1,6 @@
-import Counter from '../Components/Counter/Counter'; 
+import Counter from '../../Components/Counter/Counter'; 
 import { useEffect, useState} from 'react';
-import ItemList from '../Components/ItemList/ItemList';
+import ItemList from '../../Components/ItemList/ItemList';
 
 
 const arreglo= [
@@ -13,20 +13,24 @@ const arreglo= [
 const ItemListContainer = ({greeting}) => {
   const [productos, setProducts] = useState([]);
 
-  const getProducts = new Promise((resolve, reject) => {
+/*   const getProducts = new Promise((resolve, reject) => {
     setTimeout(()=> {
       resolve(arreglo);
     }, 2000);
-  }); 
+  });  */
+const getProducts = fetch('https://fakestoreapi.com/products')
 
  useEffect(() =>{
   getProducts
-  .then((response) => {
-    console.log(response);
-    setProducts(response);
+  .then((response) => response.json())
+
+
+  .then((response) =>setProducts(response))
+ 
+
+  .catch((err) => console.log(err))
 })
-  .catch((err) => console.log(err));
- },[])
+  
 
   return (
     <div>
