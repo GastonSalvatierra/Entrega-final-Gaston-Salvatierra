@@ -1,21 +1,26 @@
 import Counter from '../Counter/Counter'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import {CartContext} from '../../Context/CartContext'
+import './ItemDetail.css'
 
 const ItemDetail = ({productos}) => {
-  
+  const {addItem} = useContext(CartContext)
   const [contador,setContador] = useState(1);
-  const stock= 5;
+  const stock= {productos};
 
   return (
 
     <div>
         <li>
-            <img alt={productos.title} src={productos.image} width='300px' />
-            <h2>{productos.title}</h2>
-            <h3>{productos.category}</h3>
-            <h3>{productos.description}</h3>
+            <h2>{productos.titulo}</h2>
+            <img alt={productos.titulo} src={productos.img} width='300px' />
+            <h3>{productos.descripcion}</h3>
+            <h3>${productos.precio}</h3>
+            <Counter contador={contador} setContador={setContador} stock= {productos.stock}/>
+            <button onClick= {() => addItem(productos,contador)}>agregar al carrito</button>
         </li>
-        <Counter contador={contador} setContador={setContador} stock= {stock}/>
+        
+    
 
     </div>
   )

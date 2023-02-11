@@ -1,49 +1,54 @@
 import { useEffect, useState} from 'react';
 import ItemList from '../../Components/ItemList/ItemList';
 import { useParams } from 'react-router-dom';
+import {getFirestore, getDocs, collection ,query, where} from "firebase/firestore";
 
 
-/* const arreglo= [
-  {marca:'ASUS', precio: 5000, id:12},
-  {marca:'LENOVO', precio: 2000, id:13},
-  {marca:'VICTUS', precio: 6000, id:14},
-  {marca:'MSI', precio: 7000, id:15}
-]; */
- const ItemListContainer = ({greeting}) => {
+ const ItemListContainer = () => {
   const [productos, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const {category} = useParams();
 
-/*   const getProducts = new Promise((resolve, reject) => {
-    setTimeout(()=> {
-      resolve(arreglo);
-    }, 2000);
-  });  */
+    const getProducts = () => {
+      const db =  getFirestore();
+      const querySnapshot = collection(db, "products");
 
-  const getProducts = fetch('https://fakestoreapi.com/products')
+
+
+    if (category) {
+      const newConfiguration = query(querySnapshot,where ("categoria", "==", category ))
+
+      getDocs(newConfiguration).then((response)=> {
+        const data = response.docs.map((doc)=>{
+          return{id: doc.id, ...doc.data()};
+        });
+        console.log(data);
+        setProducts(data)
+      })
+      .catch(error => console.log(error));
+    } else {
+      getDocs(querySnapshot).then((response)=> {
+        const data = response.docs.map((doc)=>{
+          return{id: doc.id, ...doc.data()};
+        });
+        console.log(data);
+        setProducts(data)
+      })
+      .catch(error => console.log(error));
+    }
+  
+};
+
 
  useEffect(() =>{
-  getProducts
-  .then((response) => response.json())
+  getProducts();
 
+},[category])
 
-  .then((response) =>setProducts(response))
- 
-
-  .catch((err) => console.log(err))
-})
-
-useEffect(() => {
-  const filterProducts= productos.filter((item)=> item.category === category)
-  setFilteredProducts(filterProducts);
-}
-,[category] )
   
 
   return (
     <div>
-      <h1>{greeting}</h1>
-      <ItemList productos= {category ? filteredProducts : productos}/>
+      <ItemList productos= {productos}/>
     </div>
   )
 }

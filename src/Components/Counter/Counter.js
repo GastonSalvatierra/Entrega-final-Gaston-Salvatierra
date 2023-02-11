@@ -23,9 +23,10 @@ const Counter = ({contador, setContador, stock}) => {
             <div>
                 <div className="container">
                     <button className='button' onClick={onAdd}>+</button>
-                        <div>{contador}</div>
+                        <div className='numero'>{contador}</div>
                     <button className='button' onClick={resta}>-</button>
                 </div>
+              
         
             </div>
         )
